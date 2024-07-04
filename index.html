@@ -264,7 +264,9 @@ function syncJackpots() {
         intervals.forEach(interval => clearInterval(interval));
         intervals = [];
 
-        const levelStats = data.jackpotInstancesStats.instanceStats[2].levelStats;
+        // Filter data for "Clover Chance"
+        const instance = data.jackpotInstancesStats.instanceStats.find(instance => instance.instanceName === 'Bell Link');
+        const levelStats = instance.levelStats;
 
         if (previousJackpots.length === 0) {
             previousJackpots = [
@@ -320,23 +322,22 @@ function createInitialDomElements(wrap, domArr, jackpot, index) {
     wrap[index].innerHTML = '';
     domArr[index] = [];
 
-    jackpot.toString().split('').forEach((number, numIndex) => {
+    const jackpotStr = jackpot.toString();
+
+    for (let numIndex = 0; numIndex < jackpotStr.length; numIndex++) {
         const numDom = document.createElement('div');
-        numDom.innerHTML = parseInt(number);
+        numDom.innerHTML = parseInt(jackpotStr[numIndex]);
         wrap[index].appendChild(numDom);
         domArr[index].push(numDom);
-    
-        if (((jackpot.toString().length - 3) - numIndex) % 3 == 0) {
+
+        // Insert comma as thousand separator
+        if ((jackpotStr.length - numIndex - 1) % 3 == 0 && numIndex !== 0 && numIndex !== jackpotStr.length - 1) {
             const numDomSeparator = document.createElement('div');
-            const separator = jackpot.toString().length - 3 == numIndex ? '.' : ',';
-            for (let i = 0; i < 3; i++) {
-                const a = document.createElement('div');
-                a.innerHTML = separator;
-                numDomSeparator.appendChild(a);
-            }
+            const separator = (numIndex === jackpotStr.length - 4) ? '.' : ',';
+            numDomSeparator.innerHTML = separator;
             wrap[index].appendChild(numDomSeparator);
         }
-    });
+    }
 }
 
 function iterateAndUpdateJackpot(jackpots, index, wrap, domArr) {
