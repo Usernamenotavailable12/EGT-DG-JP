@@ -73,7 +73,7 @@
 .container .numbers__item-wrap {
     padding: 0 14px 0 30px;
     width: 100%;
-    justify-content: space-between;
+    justify-content: end;
     display: flex;
     align-items: center;
     font-size: 12px;
@@ -87,7 +87,7 @@
     line-height: 28px;
 }
 .container .number-box .jack {
-    height: 27px;
+    height: 29px;
     overflow: hidden;
     display: inline-block;
     position: relative;
@@ -119,14 +119,19 @@
 .jackpot-logo-amb-desk:is(img) {
   padding-left: 32px;
   padding-right: 32px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 .numbers__item:after {
-  content: '₾';
+  content: 'GEL';
   display: flex;
   align-items: center;
+  justify-content: center;
   padding-right: 45px;
-  font-size: 17px;
+  font-size: 7px;
   font-family: 'Noto Sans Ambassadori';
+  writing-mode: vertical-rl;
+  text-orientation: upright;
 }
 @media (max-width: 1200px) {
     .container .numbers {
@@ -164,11 +169,14 @@
     padding: 0px 14px 0 21px;
 }
 .numbers__item:after {
-  content: '₾';
+  content: 'GEL';
   display: flex;
+  justify-content: center;
   align-items: center;
   padding-right: 35px;
-  font-size: 13px;
+  font-size: 5px;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
 }
 }
 @media (min-width: 1200px) and (max-width: 1400px) {
